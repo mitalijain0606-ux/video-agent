@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Agent — AI Video Intelligence Platform</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-title">VideoAgent</div>
+            <span class="brand-tag">TOP 1% EDITION</span>
+        </div>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            <span>RAG Vector Store Ready</span>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- HERO DECK -->
+        <header class="hero-deck">
+            <div class="hero-badge">
+                <span>✨ Whisper & LangChain RAG Pipeline</span>
+            </div>
+            <h1 class="hero-h1">Turn Any Video into Actionable Intelligence</h1>
+            <p class="hero-p">
+                Paste a YouTube URL or audio file path to generate transcripts, executive summaries, 
+                action items, key decisions, and chat directly with your video content.
+            </p>
+
+            <!-- INGESTION INPUT BOX -->
+            <div class="ingest-box">
+                <input type="text" id="sourceInput" class="ingest-input" placeholder="https://www.youtube.com/watch?v=... or /path/to/audio.mp3" autocomplete="off">
+                <select id="langSelect" class="lang-select">
+                    <option value="english">English</option>
+                    <option value="hinglish">Hinglish</option>
+                </select>
+                <button id="runBtn" class="btn-primary">
+                    <span>🚀 Process Video</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- PROGRESS & WAVEFORM TELEMETRY CARD -->
+        <div id="progressCard" class="progress-card">
+            <div class="steps-bar">
+                <div class="step-node" id="step-0"><div class="node-circle">1</div><div class="node-label">Ingest</div></div>
+                <div class="step-node" id="step-1"><div class="node-circle">2</div><div class="node-label">Transcribe</div></div>
+                <div class="step-node" id="step-2"><div class="node-circle">3</div><div class="node-label">Title</div></div>
+                <div class="step-node" id="step-3"><div class="node-circle">4</div><div class="node-label">Summarize</div></div>
+                <div class="step-node" id="step-4"><div class="node-circle">5</div><div class="node-label">Extract</div></div>
+                <div class="step-node" id="step-5"><div class="node-circle">6</div><div class="node-label">RAG Index</div></div>
+            </div>
+
+            <!-- Waveform Animation -->
+            <div class="waveform-container" id="waveform">
+                <div class="wave-bar" style="animation-delay: 0.1s;"></div>
+                <div class="wave-bar" style="animation-delay: 0.3s;"></div>
+                <div class="wave-bar" style="animation-delay: 0.2s;"></div>
+                <div class="wave-bar" style="animation-delay: 0.4s;"></div>
+                <div class="wave-bar" style="animation-delay: 0.1s;"></div>
+                <div class="wave-bar" style="animation-delay: 0.5s;"></div>
+                <div class="wave-bar" style="animation-delay: 0.2s;"></div>
+            </div>
+
+            <div id="statusMsg" class="status-msg">⚡ Initializing video processing pipeline...</div>
+        </div>
+
+        <!-- RESULTS WORKSPACE GRID -->
+        <main id="workspaceGrid" class="workspace-grid">
+            
+            <!-- TITLE BANNER -->
+            <div class="title-banner">
+                <div class="title-banner-icon">📌</div>
+                <div class="title-banner-text">
+                    <span style="font-size:0.75rem; font-weight:700; color:var(--purple-primary); text-transform:uppercase; letter-spacing:0.05em;">Generated Title</span>
+                    <h2 id="resTitle">Video Intelligence Overview</h2>
+                </div>
+            </div>
+
+            <!-- LEFT COLUMN: SUMMARY & DECISIONS -->
+            <div>
+                <!-- Summary Card -->
+                <div class="glass-card">
+                    <div class="card-title">
+                        <div class="card-icon">📋</div>
+                        Executive Summary
+                    </div>
+                    <div id="resSummary" class="summary-body">Summary content will appear here...</div>
+                </div>
+
+                <!-- Key Decisions -->
+                <div class="glass-card">
+                    <div class="card-title">
+                        <div class="card-icon">🔑</div>
+                        Key Decisions
+                    </div>
+                    <div id="resDecisions" class="pill-group">
+                        <span class="pill-tag cyan">Extracting decisions...</span>
+                    </div>
+                </div>
+
+                <!-- Open Questions -->
+                <div class="glass-card">
+                    <div class="card-title">
+                        <div class="card-icon">❓</div>
+                        Open Questions
+                    </div>
+                    <div id="resQuestions" class="pill-group">
+                        <span class="pill-tag pink">Extracting open questions...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: ACTION ITEMS & TRANSCRIPT -->
+            <div>
+                <!-- Action Items -->
+                <div class="glass-card">
+                    <div class="card-title">
+                        <div class="card-icon">✅</div>
+                        Action Items Checklist
+                    </div>
+                    <div id="resActionItems">
+                        <!-- Dynamic Checkable Items -->
+                    </div>
+                </div>
+
+                <!-- Transcript Viewer -->
+                <div class="glass-card">
+                    <div class="card-title" style="justify-content: space-between;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <div class="card-icon">📝</div>
+                            Full Transcript
+                        </div>
+                        <button id="downloadBtn" class="pill-tag cyan" style="cursor:pointer; border:none; outline:none;">📥 Download .txt</button>
+                    </div>
+                    <div id="resTranscript" class="transcript-box">Transcript text...</div>
+                </div>
+            </div>
+
+            <!-- BOTTOM: RAG CHAT ASSISTANT WIDGET -->
+            <section class="chat-widget">
+                <div class="card-title">
+                    <div class="card-icon">💬</div>
+                    Interrogate Video via RAG AI Assistant
+                </div>
+                <div id="chatHistory" class="chat-history">
+                    <div class="chat-msg assistant">
+                        🤖 Hello! I am your AI Video Assistant. Ask me any question about the video content, timestamps, or key quotes!
+                    </div>
+                </div>
+                <div class="chat-input-bar">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Ask a question about this video..." autocomplete="off">
+                    <button id="sendChatBtn" class="btn-primary">Ask AI</button>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
