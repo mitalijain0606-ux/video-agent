@@ -4,6 +4,10 @@ An end-to-end AI-powered video processing assistant that converts YouTube videos
 
 ---
 
+🚀 Deployed Link
+
+Deployed Link: https://video-agent-kbbmhgmzwpchbkrs85lvea.streamlit.app/
+
 ## 🌟 Key Features
 
 - **📹 Multi-Source Support**: Seamlessly ingests YouTube URLs or local video/audio files (`.mp4`, `.mp3`, `.wav`, `.m4a`).
