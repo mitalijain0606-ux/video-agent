@@ -12,3 +12,4 @@ sentence-transformers
 fpdf2
 python-dotenv
 pydub
+torchvision
